@@ -14,14 +14,13 @@ const openai = new OpenAIApi(configuration);
 
 const app = express();
 app.use(cors());
-
 app.use(express.json());
 
 app.get('/', async (req, res) => {
     res.status(200).send({
         message: 'Hello from CodeX'
     })
-});
+})
 
 app.post('/', async (req, res) => {
     try {
@@ -39,12 +38,12 @@ app.post('/', async (req, res) => {
 
         res.status(200).send({
             bot: response.data.choices[0].text
-        })
+        });
 
     } catch (error) {
        console.log(error);
-       res.status(500).send({ error })
+       res.status(500).send(error || 'Something went wrong')
     }
 })
 
-app.listen(5000, () => console.log('Server is running on port http://localhost:5000'));
+app.listen(5000, () => console.log('Server is running on port http://localhost:5000'))
